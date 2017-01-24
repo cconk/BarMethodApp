@@ -30,7 +30,7 @@ namespace BarMethodApp.Controllers {
 
         //constructor to create items and test get items method
         constructor(private $resource: angular.resource.IResourceService) {
-            this.BarClassResource = $resource('/api/barMethodView/:id');
+            this.BarClassResource = $resource('/api/barMethodClasses/:id');
             this.getBarClasses();
             //console.log(this.barClasses);
         } 
@@ -60,14 +60,21 @@ namespace BarMethodApp.Controllers {
             //console.log(this.barClasses);
         }
 
+        public getExercises() {
+            this.exercises = this.ExerciseResource.query();
+            console.log(this.exercises);
+        }
+
         public pickInstructor() {
             //console.log(this.barInstructor);
             //console.log(this.barInstructor2);
         }
 
-        public selectBarClass(barClass) {
-            this.selectedBarClass = barClass;
+        public selectBarClass() {
+            //this.selectedBarClass = barClass;
+            //this.exercises = this.selectedBarClass.exercises;
             console.log(this.selectedBarClass);
+            
         }
 
         public selectBarClass2(barClass2) {
@@ -89,6 +96,7 @@ namespace BarMethodApp.Controllers {
             this.exercise = exercise;
             this.exercise.Name = "";
             this.exercise.Type = "";
+            this.exercise.Id = "";
             this.exercise.barClassId = this.selectedBarClass.id;
             console.log(this.exercise);
             console.log(this.selectedBarClass.id);
@@ -99,13 +107,14 @@ namespace BarMethodApp.Controllers {
         }
 
         constructor(private $resource: angular.resource.IResourceService, public $http: ng.IHttpService) {
-            this.BarClassResource = $resource('/api/barMethodView/:id');
+            this.BarClassResource = $resource('/api/barMethodClasses/:id');
             this.ExerciseResource = $resource('/api/exercise/:id');
             this.$http.get('api/exercise/').then((response)=>{
                 this.exercises = response.data;
                 //console.log(this.exercises);
             })
-           this.getBarClasses();
+            this.getBarClasses();
+            this.getExercises();
         }
     }
 }

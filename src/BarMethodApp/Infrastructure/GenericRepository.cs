@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using BarMethodApp.Data;
+using BarMethodApp.Models;
 
 namespace BarMethodApp.Infrastructure
 {
@@ -24,13 +25,19 @@ namespace BarMethodApp.Infrastructure
             return _db.Set<T>().AsQueryable();
         }
 
-
         /// <summary>
         /// Add new entity
         /// </summary>
         public void Add<T>(T entityToCreate) where T : class
         {
             _db.Set<T>().Add(entityToCreate);
+            this.SaveChanges();
+        }
+
+        public void AddExercise(int id, Exercise exercise)
+        {
+            var selectedBarClass = _db.BarClasses.FirstOrDefault(bc => bc.Id == id);
+            selectedBarClass.Exercises.Add(exercise);
             this.SaveChanges();
         }
 
@@ -88,6 +95,8 @@ namespace BarMethodApp.Infrastructure
         void SaveChanges();
         IQueryable<T> SqlQuery<T>(string sql, params object[] parameters) where T : class;
         void Update<T>(T entityToUpdate) where T : class;
+
+        void AddExercise(int id, Exercise exercise);
     }
 }
 

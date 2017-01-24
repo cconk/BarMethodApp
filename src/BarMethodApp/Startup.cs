@@ -14,7 +14,7 @@ using System.IO;
 using BarMethodApp.Data;
 using BarMethodApp.Models;
 using BarMethodApp.Services;
-
+using BarMethodApp.Infrastructure;
 
 namespace BarMethodApp
 {
@@ -55,7 +55,8 @@ namespace BarMethodApp
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
-            services.AddScoped<BMServices>();
+            services.AddScoped<BMService>();
+            services.AddTransient<IGenericRepository, GenericRepository>();
 
             
         }

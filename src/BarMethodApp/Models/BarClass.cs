@@ -11,7 +11,7 @@ namespace BarMethodApp.Models
         public string Name { get; set; }
         public DateTime Date { get; set; }
         public string Instructor { get; set; }
-        public string Type { get; set; }
-        public ICollection<Exercise> Exercises { get; set; }
+        public  string Type{ get; set; }
+        public IList<Exercise> Exercises { get; set; }
     }
 }

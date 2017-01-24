@@ -7,6 +7,7 @@ using BarMethodApp.Models;
 using BarMethodApp.Data;
 using Microsoft.EntityFrameworkCore;
 using BarMethodApp.Services;
+using BarMethodApp.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,9 +16,9 @@ namespace BarMethodApp.API
     [Route("api/[controller]")]
     public class ExerciseController : Controller
     {
-        private BMServices _bmService;
+        private BMService _bmService;
 
-        public ExerciseController(BMServices bmService)
+        public ExerciseController(BMService bmService)
         {
             _bmService = bmService;
         }
@@ -30,7 +31,7 @@ namespace BarMethodApp.API
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<Exercise> Get()
+        public IList<ExerciseVM> Get()
         {
             var exercises = _bmService.ListExercises();
             return exercises;

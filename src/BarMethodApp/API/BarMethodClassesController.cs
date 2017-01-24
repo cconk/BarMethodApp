@@ -7,6 +7,7 @@ using BarMethodApp.Models;
 using BarMethodApp.Data;
 using Microsoft.EntityFrameworkCore;
 using BarMethodApp.Services;
+using BarMethodApp.ViewModels;
 
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,11 +16,12 @@ namespace BarMethodApp.API
 {
 
     [Route("api/[controller]")]
-    public class BarMethodViewController : Controller
+    public class BarMethodClassesController : Controller
     {
-        private BMServices _bmService;
+        //name controllers after related model pluralized
+        private BMService _bmService;
 
-        public BarMethodViewController(BMServices bmService)
+        public BarMethodClassesController(BMService bmService)
         {
             _bmService = bmService;
         }
@@ -32,7 +34,7 @@ namespace BarMethodApp.API
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<BarClass> Get()
+        public IList<BarClassVM> Get()
         {
             return _bmService.ListBarClasses();
 
@@ -42,7 +44,7 @@ namespace BarMethodApp.API
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult Get()
         { 
             var barClass = _bmService.FindBarClass(id);
             if (barClass == null)
@@ -54,7 +56,7 @@ namespace BarMethodApp.API
 
         // POST api/values
         [HttpPost]
-        public IActionResult Post([FromBody]BarClass barClass)
+        public IActionResult Post([FromBody]BarClassVM barClass)
         {
  
             if(!ModelState.IsValid)
@@ -62,7 +64,7 @@ namespace BarMethodApp.API
                 return BadRequest(this.ModelState);
             }
 
-            if (barClass.Id == 0)
+            if (barClass.Name == "")
             {
                 //add Bar Class
                 _bmService.CreateBarClass(barClass);
