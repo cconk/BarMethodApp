@@ -55,7 +55,9 @@ namespace BarMethodApp
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
-            services.AddScoped<BMService>();
+            services.AddScoped<BarMethodClassesService>();
+            services.AddScoped<ExercisesService>();
+            services.AddScoped<UsersService>();
             services.AddTransient<IGenericRepository, GenericRepository>();
 
             
@@ -98,6 +100,8 @@ namespace BarMethodApp
                     defaults: new { controller = "Home", action = "Index" }
                 );
             });
+
+            SampleData.InitializeAsync(app.ApplicationServices).Wait();
 
         }
     }

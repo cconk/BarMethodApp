@@ -16,11 +16,12 @@ namespace BarMethodApp.API
     [Route("api/[controller]")]
     public class ExerciseController : Controller
     {
-        private BMService _bmService;
+        private ExercisesService  _exerciseService;
 
-        public ExerciseController(BMService bmService)
+        public ExerciseController(ExercisesService exerciseService)
+
         {
-            _bmService = bmService;
+            _exerciseService = exerciseService;
         }
 
         //private ApplicationDbContext _db;
@@ -31,9 +32,9 @@ namespace BarMethodApp.API
 
         // GET: api/values
         [HttpGet]
-        public IList<ExerciseVM> Get()
+        public IList<ExerciseVM> Get(string name, DateTime date)
         {
-            var exercises = _bmService.ListExercises();
+            var exercises = _exerciseService.ListExercisesByBarClass(name, date);
             return exercises;
         }
 
@@ -55,18 +56,18 @@ namespace BarMethodApp.API
             //}
             //return Ok(exercise);
 
-            var exercise = _bmService.FindExercise(selectedBarClassId, id);
-            return Ok(exercise);
+            //var exercise = _bmService.FindExercise(selectedBarClassId, id);
+            return Ok();
         }
 
         // POST api/values
         [HttpPost]
-        public IActionResult Post(int id, [FromBody]Exercise exercise)
+        public IActionResult Post(string id, [FromBody]ExerciseVM exercise)
         {
             //var selectedBarClass = _bmService.FindBarClass(id);
             //selectedBarClass.Exercises.Add(exercise);
             
-            _bmService.CreateExercise(id, exercise);
+            //_bmService.CreateExercise(id, exercise);
             return Ok();
 
             //return _bmService.CreateExercise(id, exercise);
@@ -74,10 +75,10 @@ namespace BarMethodApp.API
 
         // PUT api/values/5
         [HttpPut]
-        public IActionResult Put([FromBody]Exercise exercise)
+        public IActionResult Put([FromBody]ExerciseVM exercise)
         {
 
-            _bmService.UpdateExercise(exercise);
+            //_bmService.UpdateExercise(exercise);
             //var originalExercise = _db.Exercises.FirstOrDefault(ex => ex.Id == exercise.Id);
             //originalExercise.Description = exercise.Description;
             //originalExercise.Name = exercise.Name;
@@ -96,7 +97,7 @@ namespace BarMethodApp.API
             {
                 return NotFound();
             }
-            _bmService.DeleteExercise(id);
+            //_bmService.DeleteExercise(id);
             //_db.Exercises.Remove(exercise);
             //_db.SaveChanges();
             return Ok();

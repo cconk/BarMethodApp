@@ -34,14 +34,7 @@ namespace BarMethodApp.Infrastructure
             this.SaveChanges();
         }
 
-        public void AddExercise(int id, Exercise exercise)
-        {
-            var selectedBarClass = _db.BarClasses.FirstOrDefault(bc => bc.Id == id);
-            selectedBarClass.Exercises.Add(exercise);
-            this.SaveChanges();
-        }
-
-
+        
         /// <summary>
         /// Update an existing entity
         /// </summary>
@@ -95,8 +88,6 @@ namespace BarMethodApp.Infrastructure
         void SaveChanges();
         IQueryable<T> SqlQuery<T>(string sql, params object[] parameters) where T : class;
         void Update<T>(T entityToUpdate) where T : class;
-
-        void AddExercise(int id, Exercise exercise);
     }
 }
 

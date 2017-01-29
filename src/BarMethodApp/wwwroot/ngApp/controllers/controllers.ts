@@ -7,32 +7,40 @@ namespace BarMethodApp.Controllers {
 
     export class AddClassController {
         public message = 'Please enter all of the information requested below to add a new class.';
-
         private BarClassResource;
-        public barClass;
-        public barClasses;
-        
+        public newBarMethodClass;
+        public instructors;
+        public selectedInstructor;
+        public selectedInstructorClasses;
 
-        // get items from database
-        public getBarClasses() {
-            this.barClasses = this.BarClassResource.query();
-            //console.log(this.barClasses);
+
+        //get instructors
+        public getInstructors() {
+            this.instructors = this.BarClassResource.query();
+            console.log(this.instructors);
+        }
+
+        public getClassesByInstructor() {
+            console.log(this.selectedInstructor.userName);
+            this.selectedInstructorClasses = this.BarClassResource.get({ id: this.selectedInstructor.userName });
+            console.log(this.selectedInstructorClasses);
+
         }
 
         // save new items to database added on the list view
-        private save() {
-            this.BarClassResource.save(this.barClass).$promise.then(() => {
-                this.barClass = null;
-                this.getBarClasses();
-            });
+        private addBarMethodClass() {
+            console.log(this.selectedInstructor.userName);
+            this.selectedInstructor = null;
+
+            //this.BarClassResource.save(this.newBarMethodClass).$promise.then(() => {
+            //    this.newBarMethodClass = null;
+            //});
         }
         
-
         //constructor to create items and test get items method
         constructor(private $resource: angular.resource.IResourceService) {
             this.BarClassResource = $resource('/api/barMethodClasses/:id');
-            this.getBarClasses();
-            //console.log(this.barClasses);
+            this.getInstructors();
         } 
     }
 
@@ -41,7 +49,7 @@ namespace BarMethodApp.Controllers {
         public message = 'Select an instructor and a class to edit';
         public message2 = 'Select an instructor and class to see what they did';
 
-        private BarClassResource;history
+        private BarClassResource;
         public barClass;
         public barClasses;
         public barInstructor;
@@ -57,7 +65,7 @@ namespace BarMethodApp.Controllers {
 
         public getBarClasses() {
             this.barClasses = this.BarClassResource.query();
-            //console.log(this.barClasses);
+            console.log(this.barClasses);
         }
 
         public getExercises() {
@@ -65,15 +73,11 @@ namespace BarMethodApp.Controllers {
             console.log(this.exercises);
         }
 
-        public pickInstructor() {
-            //console.log(this.barInstructor);
-            //console.log(this.barInstructor2);
-        }
-
+    
         public selectBarClass() {
             //this.selectedBarClass = barClass;
             //this.exercises = this.selectedBarClass.exercises;
-            console.log(this.selectedBarClass);
+            console.log(this.selectedBarClass.$$hashKey);
             
         }
 
@@ -94,15 +98,16 @@ namespace BarMethodApp.Controllers {
         private save(exercise) {
             console.log(this.exercise);
             this.exercise = exercise;
-            this.exercise.Name = "";
-            this.exercise.Type = "";
-            this.exercise.Id = "";
-            this.exercise.barClassId = this.selectedBarClass.id;
+            
+            //this.exercise.Name = "";
+            //this.exercise.Type = "";
+            //this.exercise.Id = "";
+            //this.exercise.barClassId = this.selectedBarClass.id;
             console.log(this.exercise);
-            console.log(this.selectedBarClass.id);
-            this.selectedBarClassId = this.selectedBarClass.id;
-            console.log(this.selectedBarClassId);
-            this.ExerciseResource.save({ Id: this.selectedBarClassId }, exercise).$promise;  
+            console.log(this.selectedBarClass.$$hashKey);
+            
+            
+            this.ExerciseResource.save({ Id: this.selectedBarClass.$$hashKey }, exercise).$promise;  
             this.exercise = null;
         }
 

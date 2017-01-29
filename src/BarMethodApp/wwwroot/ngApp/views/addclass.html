@@ -3,22 +3,26 @@
     {{controller.message}}
 </p>
 
-<form ng-submit="controller.save()">
-    <label>Instructor Name:</label>
-    <div>
-        <input ng-model="controller.barClass.instructor" />
-    </div> <br />
-    <label>Class Name:</label>
-    <div>
-        <input ng-model="controller.barClass.name" />
-    </div> <br />
-    <label>Class Type:</label>
-    <div>
-        <input ng-model="controller.barClass.type" />
-    </div> <br />
-    <label>Date:</label>
-    <div>
-        <input ng-model="controller.barClass.date" />
-    </div> <br />
-    <input type="submit" value="Save" />
+<form ng-submit="controller.addBarMethodClass()">
+    <label>User Name:</label>
+        <select ng-model="controller.selectedInstructor" ng-options="instructor as instructor.userName for instructor in controller.instructors" ng-change="controller.getClassesByInstructor()">
+            <option value="0">Default</option>
+         </select>
+        <br />
+        <label>Class Name:</label>
+        <div>
+            <input ng-model="controller.newBarMethodClass.name" />
+        </div>
+        <br />
+        <label>Class Type:</label>
+        <div>
+            <input ng-model="controller.newBarMethodClass.type" />
+        </div>
+        <br />
+        <label>Date:</label>
+        <div>
+            <input ng-model="controller.newBarMethodClass.date" />
+        </div>
+        <br />
+        <input type="submit" value="Save" />
 </form>

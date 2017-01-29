@@ -5,16 +5,16 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using BarMethodApp.Data;
 
-namespace BarMethodApp.Data.Migrations
+namespace BarMethodApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161209223503_oneMany")]
-    partial class oneMany
+    [Migration("20170128003632_start")]
+    partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
+                .HasAnnotation("ProductVersion", "1.0.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("BarMethodApp.Models.ApplicationUser", b =>
@@ -30,6 +30,10 @@ namespace BarMethodApp.Data.Migrations
                         .HasAnnotation("MaxLength", 256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -66,14 +70,14 @@ namespace BarMethodApp.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("BarMethodApp.Models.BarClass", b =>
+            modelBuilder.Entity("BarMethodApp.Models.BarMethodClass", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("Date");
+                    b.Property<string>("ApplicationUserId");
 
-                    b.Property<string>("Instructor");
+                    b.Property<DateTime>("Date");
 
                     b.Property<string>("Name");
 
@@ -81,7 +85,27 @@ namespace BarMethodApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BarClasses");
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("BarMethodClasses");
+                });
+
+            modelBuilder.Entity("BarMethodApp.Models.BMCExercise", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("BMCId");
+
+                    b.Property<int>("ExerciseId");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("BMCId");
+
+                    b.HasIndex("ExerciseId");
+
+                    b.ToTable("BMCExercises");
                 });
 
             modelBuilder.Entity("BarMethodApp.Models.Exercise", b =>
@@ -89,17 +113,15 @@ namespace BarMethodApp.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("BarClassId");
-
                     b.Property<string>("Description");
 
                     b.Property<string>("Name");
 
+                    b.Property<int>("Order");
+
                     b.Property<string>("Type");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BarClassId");
 
                     b.ToTable("Exercises");
                 });
@@ -211,11 +233,24 @@ namespace BarMethodApp.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BarMethodApp.Models.Exercise", b =>
+            modelBuilder.Entity("BarMethodApp.Models.BarMethodClass", b =>
                 {
-                    b.HasOne("BarMethodApp.Models.BarClass")
+                    b.HasOne("BarMethodApp.Models.ApplicationUser")
+                        .WithMany("BarMethodClasses")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("BarMethodApp.Models.BMCExercise", b =>
+                {
+                    b.HasOne("BarMethodApp.Models.BarMethodClass", "BMClass")
                         .WithMany("Exercises")
-                        .HasForeignKey("BarClassId");
+                        .HasForeignKey("BMCId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BarMethodApp.Models.Exercise", "Exercise")
+                        .WithMany("BarMethodClasses")
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

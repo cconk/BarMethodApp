@@ -8,7 +8,7 @@
         <select ng-model="controller.barInstructor" ng-options="barClass.instructor for barClass in controller.barClasses | unique:'instructor'">
             <option value="0">Default</option>
         </select>
-        <select ng-model="controller.selectedBarClass" ng-options='(barClass.name+" "+(barClass.date | date:"MM-dd-yy")) for barClass in controller.barClasses | filter:{instructor:controller.barInstructor.instructor}'>
+        <select ng-model="controller.selectedBarClass" ng-options='(barClass.name+" "+(barClass.date | date:"MM-dd-yy")) for barClass in controller.barClasses | filter:{instructor:controller.barInstructor.instructor}' ng-change="controller.selectBarClass()">
             <option value="0">Default</option>
         </select>
         <!--<ul>

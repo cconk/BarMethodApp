@@ -19,11 +19,11 @@ namespace BarMethodApp.API
     public class BarMethodClassesController : Controller
     {
         //name controllers after related model pluralized
-        private BMService _bmService;
+        private BarMethodClassesService _barMethodClassesService;
 
-        public BarMethodClassesController(BMService bmService)
+        public BarMethodClassesController(BarMethodClassesService barMethodClassesService)
         {
-            _bmService = bmService;
+            _barMethodClassesService = barMethodClassesService;
         }
 
         //private ApplicationDbContext _db;
@@ -34,9 +34,9 @@ namespace BarMethodApp.API
 
         // GET: api/values
         [HttpGet]
-        public IList<BarClassVM> Get()
+        public IList<ApplicationUserVM> Get()
         {
-            return _bmService.ListBarClasses();
+            return _barMethodClassesService.ListInstructors();
 
             //var exercises = _db.BarClasses.Include(bc => bc.Exercises).ToList();
             //return exercises;    
@@ -44,47 +44,45 @@ namespace BarMethodApp.API
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public IActionResult Get()
-        { 
-            var barClass = _bmService.FindBarClass(id);
-            if (barClass == null)
-            {
-                return NotFound();
-            }
-            return Ok(barClass);
+        public  IList<BarMethodClassVM> Get(string id)
+        {
+            return _barMethodClassesService.ListBarClassByInstructor(id);
         }
 
         // POST api/values
         [HttpPost]
-        public IActionResult Post([FromBody]BarClassVM barClass)
+        public IActionResult Post([FromBody]BarMethodClassVM newBarMethodClass)
         {
- 
+            
             if(!ModelState.IsValid)
             {
                 return BadRequest(this.ModelState);
             }
 
-            if (barClass.Name == "")
+            if (newBarMethodClass.Name == "")
             {
-                //add Bar Class
-                _bmService.CreateBarClass(barClass);
-                //_db.SaveChanges();
+                //error messaging
+
+                
             }
             else
             {
-                //update existing class
+                //add new class
+                //_barMethodClasses services method for adding a new class
+                
+                _barMethodClassesService.AddNewBarMethodClass(newBarMethodClass);
 
-                _bmService.UpdateBarClass(barClass);
 
-                //var orginalBarClass = _db.BarClasses.FirstOrDefault(bc => bc.Id == barClass.Id);
-                //orginalBarClass.Instructor = barClass.Instructor;
-                //orginalBarClass.Name = barClass.Name;
-                //orginalBarClass.Date = barClass.Date;
-                //orginalBarClass.Type = barClass.Type;
-                //_db.SaveChanges();
+                            //    //update existing class
+                            //    //var orginalBarClass = _db.BarClasses.FirstOrDefault(bc => bc.Id == barClass.Id);
+                            //    //orginalBarClass.Instructor = barClass.Instructor;
+                            //    //orginalBarClass.Name = barClass.Name;
+                            //    //orginalBarClass.Date = barClass.Date;
+                            //    //orginalBarClass.Type = barClass.Type;
+                            //    //_db.SaveChanges();
 
             }
-            return Ok(barClass);
+            return Ok(newBarMethodClass);
         }
 
 
@@ -92,13 +90,13 @@ namespace BarMethodApp.API
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var barClass = _bmService.FindBarClass(id);
-            if (barClass == null)
-            {
-                return NotFound();
-            }
-            _bmService.DeleteBarClass(id);
-            //_db.SaveChanges();
+            //var barClass = _barMethodClassesService.FindBarClass(id);
+            //if (barClass == null)
+            //{
+            //    return NotFound();
+            //}
+            //_barMethodClassesService.DeleteBarClass(id);
+            ////_db.SaveChanges();
             return Ok();
         }
     }
