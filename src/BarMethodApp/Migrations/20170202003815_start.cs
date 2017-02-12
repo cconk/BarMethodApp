@@ -86,8 +86,8 @@ namespace BarMethodApp.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ApplicationUserId = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
+                    InstructorId = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: true)
                 },
@@ -95,8 +95,8 @@ namespace BarMethodApp.Migrations
                 {
                     table.PrimaryKey("PK_BarMethodClasses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BarMethodClasses_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        name: "FK_BarMethodClasses_AspNetUsers_InstructorId",
+                        column: x => x.InstructorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -226,9 +226,9 @@ namespace BarMethodApp.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_BarMethodClasses_ApplicationUserId",
+                name: "IX_BarMethodClasses_InstructorId",
                 table: "BarMethodClasses",
-                column: "ApplicationUserId");
+                column: "InstructorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BMCExercises_BMCId",

@@ -8,6 +8,7 @@ using BarMethodApp.Data;
 using Microsoft.EntityFrameworkCore;
 using BarMethodApp.Services;
 using BarMethodApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -26,18 +27,11 @@ namespace BarMethodApp.API
             _barMethodClassesService = barMethodClassesService;
         }
 
-        //private ApplicationDbContext _db;
-        //public BarMethodViewController(ApplicationDbContext db)
-        //{
-        //    this._db = db;
-        //}
-
         // GET: api/values
         [HttpGet]
         public IList<ApplicationUserVM> Get()
         {
             return _barMethodClassesService.ListInstructors();
-
             //var exercises = _db.BarClasses.Include(bc => bc.Exercises).ToList();
             //return exercises;    
         }
@@ -50,10 +44,9 @@ namespace BarMethodApp.API
         }
 
         // POST api/values
-        [HttpPost]
-        public IActionResult Post([FromBody]BarMethodClassVM newBarMethodClass)
+        [HttpPost("{id}")]
+        public IActionResult Post(string id, [FromBody]BarMethodClass newBarMethodClass)
         {
-            
             if(!ModelState.IsValid)
             {
                 return BadRequest(this.ModelState);
@@ -62,25 +55,11 @@ namespace BarMethodApp.API
             if (newBarMethodClass.Name == "")
             {
                 //error messaging
-
-                
             }
             else
-            {
-                //add new class
+            { 
                 //_barMethodClasses services method for adding a new class
-                
-                _barMethodClassesService.AddNewBarMethodClass(newBarMethodClass);
-
-
-                            //    //update existing class
-                            //    //var orginalBarClass = _db.BarClasses.FirstOrDefault(bc => bc.Id == barClass.Id);
-                            //    //orginalBarClass.Instructor = barClass.Instructor;
-                            //    //orginalBarClass.Name = barClass.Name;
-                            //    //orginalBarClass.Date = barClass.Date;
-                            //    //orginalBarClass.Type = barClass.Type;
-                            //    //_db.SaveChanges();
-
+                _barMethodClassesService.AddNewBarMethodClass(id, newBarMethodClass);
             }
             return Ok(newBarMethodClass);
         }
@@ -88,6 +67,7 @@ namespace BarMethodApp.API
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
+        [Authorize(Policy = "AdminOnly")]
         public IActionResult Delete(int id)
         {
             //var barClass = _barMethodClassesService.FindBarClass(id);

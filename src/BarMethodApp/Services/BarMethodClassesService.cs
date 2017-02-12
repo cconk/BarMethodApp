@@ -32,41 +32,38 @@ namespace BarMethodApp.Services
 
         public IList<BarMethodClassVM> ListBarClassByInstructor(string userName)
         {
-            var selectedInstructorBarClasses = _repo.Query<ApplicationUser>().Include(i => i.BarMethodClasses).Where(i => i.UserName == userName).Select(i => new BarMethodClassVM() { }).ToList();
-
-
-            //from bc in _repo.Query<BarMethodClass>()
-            //join u in _repo.Query<ApplicationUser>() on bc.ApplicationUserId equals u.Id
-            //select new BarMethodClassVM()
-            //{
-            //    Name = bc.Name
-            //};
-
-
-            //
-
-            //// based on user input from front end return a list of barClasses for selected instructor
-            //var selectedInstructor = (from i in _repo.Query<ApplicationUser>()
-            //                          where i.UserName == userName
-            //                          select new ApplicationUserVM()
-            //                          {
-            //                              UserName = i.UserName,
-
-            //                          }).FirstOrDefault();
-            //var barClasses = (from bc in selectedInstructor.BarMethodClasses select bc).ToList();
-            return selectedInstructorBarClasses;
+            
+            // based on user input from front end return a list of barClasses for selected instructor
+            var selectedInstructor = (from i in _repo.Query<ApplicationUser>()
+                              where i.UserName == userName
+                              select new ApplicationUserVM()
+                              {
+                                  BarMethodClasses = (from bc in i.BarMethodClasses
+                                                      select new BarMethodClassVM()
+                                                      {
+                                                          Id = bc.Id,
+                                                          Name = bc.Name,
+                                                          Date = bc.Date,
+                                                          Type = bc.Type
+                                                      }).ToList()
+                              }).FirstOrDefault();
+            return selectedInstructor.BarMethodClasses;
         }
 
-        public void AddNewBarMethodClass(BarMethodClassVM newBarMethodClass)
+        public void AddNewBarMethodClass(string userName, BarMethodClass newBarMethodClass)
         {
-
+            //Add a new class to an existing instructor/user
+            var selectedInstructor = (from i in _repo.Query<ApplicationUser>().Include(i=>i.BarMethodClasses)
+                                      where i.UserName == userName
+                                      select i).FirstOrDefault();
             var barMethodClass = new BarMethodClass()
-            {
+            {   
                 Date = newBarMethodClass.Date,
                 Name = newBarMethodClass.Name,
                 Type = newBarMethodClass.Type,
             };
-            _repo.Add(barMethodClass);
+            selectedInstructor.BarMethodClasses.Add(barMethodClass);
+            _repo.Update(selectedInstructor);
         }
 
         public IList<BarMethodClassVM> ListBarClasses() // may not ever need this method

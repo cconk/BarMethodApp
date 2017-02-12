@@ -25,6 +25,12 @@ namespace BarMethodApp {
                 controller: BarMethodApp.Controllers.EditClassController,
                 controllerAs: 'controller'
             })
+            .state('login', {
+                url: '/login',
+                templateUrl: '/ngApp/views/login.html',
+                controller: BarMethodApp.Controllers.LoginController,
+                controllerAs: 'controller'
+            })
             .state('notFound', {
                 url: '/notFound',
                 templateUrl: '/ngApp/views/notFound.html'
@@ -37,6 +43,28 @@ namespace BarMethodApp {
         $locationProvider.html5Mode(true);
     });
 
-    
+    angular.module('BarMethodApp').factory('authInterceptor', (
+        $q: ng.IQService,
+        $window: ng.IWindowService,
+        $location: ng.ILocationService
+    ) =>
+        ({
+            request: function (config) {
+                config.headers = config.headers || {};
+                config.headers['X-Requested-With'] = 'XMLHttpRequest';
+                return config;
+            },
+            responseError: function (rejection) {
+                if (rejection.status === 401 || rejection.status === 403) {
+                    $location.path('/login');
+                }
+                return $q.reject(rejection);
+            }
+        })
+    );
+
+    angular.module('BarMethodApp').config(function ($httpProvider) {
+        $httpProvider.interceptors.push('authInterceptor');
+    });
 
 }

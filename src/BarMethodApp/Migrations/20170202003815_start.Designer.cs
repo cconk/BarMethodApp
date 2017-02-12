@@ -8,7 +8,7 @@ using BarMethodApp.Data;
 namespace BarMethodApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170128003632_start")]
+    [Migration("20170202003815_start")]
     partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,9 +75,9 @@ namespace BarMethodApp.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.Property<DateTime>("Date");
+
+                    b.Property<string>("InstructorId");
 
                     b.Property<string>("Name");
 
@@ -85,7 +85,7 @@ namespace BarMethodApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("InstructorId");
 
                     b.ToTable("BarMethodClasses");
                 });
@@ -235,9 +235,9 @@ namespace BarMethodApp.Migrations
 
             modelBuilder.Entity("BarMethodApp.Models.BarMethodClass", b =>
                 {
-                    b.HasOne("BarMethodApp.Models.ApplicationUser")
+                    b.HasOne("BarMethodApp.Models.ApplicationUser", "Instructor")
                         .WithMany("BarMethodClasses")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("InstructorId");
                 });
 
             modelBuilder.Entity("BarMethodApp.Models.BMCExercise", b =>

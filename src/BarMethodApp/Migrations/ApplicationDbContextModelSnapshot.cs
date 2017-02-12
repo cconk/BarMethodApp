@@ -74,9 +74,9 @@ namespace BarMethodApp.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.Property<DateTime>("Date");
+
+                    b.Property<string>("InstructorId");
 
                     b.Property<string>("Name");
 
@@ -84,7 +84,7 @@ namespace BarMethodApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("InstructorId");
 
                     b.ToTable("BarMethodClasses");
                 });
@@ -234,9 +234,9 @@ namespace BarMethodApp.Migrations
 
             modelBuilder.Entity("BarMethodApp.Models.BarMethodClass", b =>
                 {
-                    b.HasOne("BarMethodApp.Models.ApplicationUser")
+                    b.HasOne("BarMethodApp.Models.ApplicationUser", "Instructor")
                         .WithMany("BarMethodClasses")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("InstructorId");
                 });
 
             modelBuilder.Entity("BarMethodApp.Models.BMCExercise", b =>

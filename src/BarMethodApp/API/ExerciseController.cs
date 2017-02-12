@@ -32,15 +32,15 @@ namespace BarMethodApp.API
 
         // GET: api/values
         [HttpGet]
-        public IList<ExerciseVM> Get(string name, DateTime date)
+        public IList<ExerciseVM> Get()
         {
-            var exercises = _exerciseService.ListExercisesByBarClass(name, date);
-            return exercises;
+            
+            return _exerciseService.ListExercises();
         }
 
         // GET api/values/5
-        [HttpGet("{selectedBarClassId}/exercises/{id}", Name = "GetExercise")]
-        public IActionResult GetExercises(int selectedBarClassId, int id)
+        [HttpGet("{id}")]
+        public IList<ExerciseVM> Get(int id)
         {
             //var selectedBarClass = _bmService.FindBarClass(selectedBarClassId);
 
@@ -57,35 +57,36 @@ namespace BarMethodApp.API
             //return Ok(exercise);
 
             //var exercise = _bmService.FindExercise(selectedBarClassId, id);
-            return Ok();
+            return _exerciseService.ListExercisesByBarClass(id);
         }
 
         // POST api/values
-        [HttpPost]
-        public IActionResult Post(string id, [FromBody]ExerciseVM exercise)
+        [HttpPost("{id}")]
+        public IActionResult Post(int id, [FromBody]Exercise exercise)
         {
             //var selectedBarClass = _bmService.FindBarClass(id);
             //selectedBarClass.Exercises.Add(exercise);
-            
+
             //_bmService.CreateExercise(id, exercise);
+            _exerciseService.AddExercise(id, exercise);
             return Ok();
 
             //return _bmService.CreateExercise(id, exercise);
         }
 
         // PUT api/values/5
-        [HttpPut]
-        public IActionResult Put([FromBody]ExerciseVM exercise)
+        [HttpPost]
+        public IActionResult Post([FromBody]Exercise exercise)
         {
 
-            //_bmService.UpdateExercise(exercise);
+            _exerciseService.UpdateExercise(exercise);
             //var originalExercise = _db.Exercises.FirstOrDefault(ex => ex.Id == exercise.Id);
             //originalExercise.Description = exercise.Description;
             //originalExercise.Name = exercise.Name;
             //originalExercise.Type = exercise.Type;
             //_db.SaveChanges();
         
-            return Ok(exercise);
+            return Ok();
         }
 
         // DELETE api/values/5

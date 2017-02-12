@@ -5,46 +5,40 @@
     </p>
 
     <form>
-        <select ng-model="controller.barInstructor" ng-options="barClass.instructor for barClass in controller.barClasses | unique:'instructor'">
+        <select ng-model="controller.selectedInstructor" ng-options="instructor as instructor.userName for instructor in controller.instructors" ng-change="controller.getClassesByInstructor()">
             <option value="0">Default</option>
         </select>
-        <select ng-model="controller.selectedBarClass" ng-options='(barClass.name+" "+(barClass.date | date:"MM-dd-yy")) for barClass in controller.barClasses | filter:{instructor:controller.barInstructor.instructor}' ng-change="controller.selectBarClass()">
+        <select ng-model="controller.selectedInstructorClass" ng-options='(selectedInstructorClass.name+" "+(selectedInstructorClass.date | date:"MM-dd-yy")) for selectedInstructorClass in controller.selectedInstructorClasses' ng-change="controller.getExercises()">
             <option value="0">Default</option>
         </select>
-        <!--<ul>
-            <li ng-repeat="barClass in controller.barClasses | filter:{instructor:controller.barInstructor.instructor}">
-                <a ng-click="controller.selectBarClass(barClass)">{{barClass.date | date:"MM-dd-yy"}} &nbsp; {{barClass.name}}</a>
-            </li>
-        </ul>-->
     </form>
     <div>
         <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Exercise Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <form ng-repeat="exercise in controller.selectedBarClass.exercises" >
-                                    <input placeholder="{{exercise.description}}" ng-model="exercise.description"/>
-                                    <input type="submit" value="Update" ng-click="controller.update(exercise)" />
-                                </form>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <form>
-                                    <input ng-model="exercise.description" />
-                                    <input type="submit" value="Add" ng-click="controller.save(exercise)"/>
-                                </form>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Exercise Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <form ng-repeat="exercise in controller.selectedInstructorClassExercises" >
+                                <input placeholder="{{exercise.description}}" ng-model="exercise.description"/>
+                                <input type="submit" value="Update" ng-click="controller.updateExercise(exercise)" />
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <form>
+                                <input ng-model="newExercise.description" />
+                                <input type="submit" value="Add" ng-click="controller.addExercise(newExercise)"/>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -56,17 +50,12 @@
     </p>
 
     <form>
-        <select ng-model="controller.barInstructor2" ng-options="barClass2.instructor for barClass2 in controller.barClasses | unique:'instructor'" ng-change="controller.pickInstructor()">
+        <select ng-model="controller.selectedInstructor2" ng-options="instructor as instructor.userName for instructor in controller.instructors" ng-change="controller.getClassesByInstructor2()">
             <option value="0">Default</option>
         </select>
-        <select ng-model="controller.selectedBarClass2" ng-options='(barClass2.name+" "+(barClass2.date | date:"MM-dd-yy")) for barClass2 in controller.barClasses | filter:{instructor:controller.barInstructor2.instructor}'>
+        <select ng-model="controller.selectedInstructor2Class" ng-options='(selectedInstructor2Class.name+" "+(selectedInstructor2Class.date | date:"MM-dd-yy")) for selectedInstructor2Class in controller.selectedInstructor2Classes' ng-change="controller.getExercises2()">
             <option value="0">Default</option>
         </select>
-        <!--<ul>
-            <li ng-repeat="barClass2 in controller.barClasses | filter:{instructor:controller.barInstructor2.instructor}">
-                <a ng-click="controller.selectBarClass2(barClass2)">{{barClass2.date | date:"MM-dd-yy"}} &nbsp; {{barClass2.name}}</a>
-            </li>
-        </ul>-->
     </form>
 
     <form>
@@ -78,7 +67,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="exercise in controller.selectedBarClass2.exercises">
+                    <tr ng-repeat="exercise in controller.selectedInstructor2ClassExercises">
                         <td>{{exercise.description}}</td>
                     </tr>
                 </tbody>

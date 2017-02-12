@@ -13,6 +13,10 @@ namespace BarMethodApp.Models
         public DateTime Date { get; set; }
         public  string Type{ get; set; }
         public IList<BMCExercise> Exercises { get; set; }
-      
+        public ApplicationUser Instructor { get; set; }
+        [ForeignKey("Instructor")]
+        public string InstructorId { get; set; }
+
+
     }
 }

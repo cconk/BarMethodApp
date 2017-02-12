@@ -30,9 +30,9 @@ namespace BarMethodApp.Data
                     Email = "chadconklin@barmethod.com",
                     BarMethodClasses = new List<BarMethodClass>
                     {
-                        new BarMethodClass { Name = "Class 1", Date = DateTime.Parse("2017-1-1"), Type = "Level 1" },
-                        new BarMethodClass { Name = "Class 2", Date = DateTime.Parse("2017-1-2"), Type = "Level 2" },
-                        new BarMethodClass { Name = "Class 3", Date = DateTime.Parse("2017-1-3"), Type = "Mixed Level" }
+                        new BarMethodClass { Name = "Class 1", Date = DateTime.Parse("2017-1-1"), Type = "Level 1"  },
+                        new BarMethodClass { Name = "Class 2", Date = DateTime.Parse("2017-1-2"), Type = "Level 2"  },
+                        new BarMethodClass { Name = "Class 3", Date = DateTime.Parse("2017-1-3"), Type = "Mixed Level"  }
                     }
                 };
                 await userManager.CreateAsync(chad, "Secret123!");
@@ -72,7 +72,7 @@ namespace BarMethodApp.Data
                     BarMethodClasses = new List<BarMethodClass>
                     {
                         new BarMethodClass { Name = "Class 7", Date = DateTime.Parse("2017-1-7"), Type = "Level 1" },
-                        new BarMethodClass { Name = "Class 8", Date = DateTime.Parse("2017-1-8"), Type = "Level 2" },
+                        new BarMethodClass { Name = "Class 8", Date = DateTime.Parse("2017-1-8"), Type = "Level 2"  },
                         new BarMethodClass { Name = "Class 9", Date = DateTime.Parse("2017-1-9"), Type = "Mixed Level" }
                     }
                 };
@@ -145,8 +145,6 @@ namespace BarMethodApp.Data
                     new BMCExercise { BMCId = 2, ExerciseId = 1 },
                     new BMCExercise { BMCId = 2, ExerciseId = 2 },
                     new BMCExercise { BMCId = 2, ExerciseId = 3 },
-                    new BMCExercise { BMCId = 3, ExerciseId = 1 },
-                    new BMCExercise { BMCId = 3, ExerciseId = 2 },
                     new BMCExercise { BMCId = 3, ExerciseId = 1 },
                     new BMCExercise { BMCId = 3, ExerciseId = 2 },
                     new BMCExercise { BMCId = 3, ExerciseId = 3 },
