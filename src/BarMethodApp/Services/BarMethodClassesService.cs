@@ -76,5 +76,12 @@ namespace BarMethodApp.Services
             }).ToList();
             return barClasses;
         }
+
+        public void DeleteBarMethodClass(int id)
+        {
+            var barMethodClassToDelete = (from bc in _repo.Query<BarMethodClass>() where bc.Id == id select bc).FirstOrDefault();
+
+            _repo.Delete(barMethodClassToDelete);
+        }
     }
 }

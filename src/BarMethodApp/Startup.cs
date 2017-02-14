@@ -98,6 +98,12 @@ namespace BarMethodApp
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
 
+            app.UseTwitterAuthentication(new TwitterOptions
+            {
+                ConsumerKey = Configuration["ConsumerKey"],
+                ConsumerSecret = Configuration ["ConsumerSecret"]
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

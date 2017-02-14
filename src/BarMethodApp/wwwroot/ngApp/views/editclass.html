@@ -11,6 +11,7 @@
         <select ng-model="controller.selectedInstructorClass" ng-options='(selectedInstructorClass.name+" "+(selectedInstructorClass.date | date:"MM-dd-yy")) for selectedInstructorClass in controller.selectedInstructorClasses' ng-change="controller.getExercises()">
             <option value="0">Default</option>
         </select>
+        <input type="submit" value="Delete this class" ng-click="controller.deleteBarMethodClass(selectedInstructorClass)" />
     </form>
     <div>
         <div>
@@ -26,6 +27,7 @@
                             <form ng-repeat="exercise in controller.selectedInstructorClassExercises" >
                                 <input placeholder="{{exercise.description}}" ng-model="exercise.description"/>
                                 <input type="submit" value="Update" ng-click="controller.updateExercise(exercise)" />
+                                <input type="submit" value="Delete" ng-click="controller.deleteExercise(exercise)" />
                             </form>
                         </td>
                     </tr>

@@ -32,6 +32,7 @@ namespace BarMethodApp.Services
                                         Order = bc.Exercise.Order,
                                         Description = bc.Exercise.Description
                                      }).ToList();
+            _repo.SaveChanges();
             return selectedExercises;
         }
 
@@ -57,7 +58,33 @@ namespace BarMethodApp.Services
 
         public void AddExercise(int id, Exercise newExercise)
         {
+            var exerciseToAdd = new Exercise()
+            {
+                Description = newExercise.Description,
+                Name = newExercise.Name,
+                Type= newExercise.Type,
+                Order = newExercise.Order
+            };
 
+            _repo.Add(exerciseToAdd);
+            _repo.SaveChanges();
+
+            var BMCExercise = new BMCExercise()
+            {
+                BMCId = id,
+                ExerciseId = exerciseToAdd.Id
+            };
+        
+            _repo.Add(BMCExercise);
+            _repo.SaveChanges();
+
+        }
+
+        public void DeleteExercise(int id)
+        {
+            var exerciseToDelete = (from e in _repo.Query<Exercise>() where e.Id == id select e).FirstOrDefault();
+
+            _repo.Delete(exerciseToDelete);
         }
     }
 }

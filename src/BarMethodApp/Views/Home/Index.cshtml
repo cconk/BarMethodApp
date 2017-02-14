@@ -1,19 +1,23 @@
 <html ng-app="BarMethodApp">
 <head>
     <title>Bar Method App</title>
-    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/spacelab/bootstrap.min.css">*@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/spacelab/bootstrap.min.css">
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />
     <base href="/" />
 </head>
-<body >
+<body ng-controller="AccountController as account">
     <div class="container">
         <h1>Bar Method App</h1>
         <div>
           <a href="/">Home</a> /
           <a href="/addclass">Add Class</a> /
           <a href="/editclass">Edit Class</a> /
-          <a href="/login">Log in</a>
+          <a href="/login" ng-show="!account.isLoggedIn()">Login</a>
+          <a href="#" ng-click="account.logout()" ng-show="account.isLoggedIn()">Logout</a>
+        </div>
+        <div ng-show="account.isLoggedIn()">
+            [{{account.getUserName()}}]
         </div>
         <hr />
 

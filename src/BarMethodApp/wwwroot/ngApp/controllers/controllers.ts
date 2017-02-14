@@ -2,7 +2,7 @@ namespace BarMethodApp.Controllers {
 
     export class HomeController {
         //register and login availability on view need a new API for security and point this controller to it
-       
+        public message = 'Welcome to the Bar Method Class building app.  You can design your classes here and keep track of what you taught!';
 
     }
 
@@ -14,7 +14,6 @@ namespace BarMethodApp.Controllers {
         public selectedInstructor;
         public selectedInstructorClasses;
 
-
         //get instructors
         public getInstructors() {
             this.instructors = this.BarClassResource.query();
@@ -25,7 +24,6 @@ namespace BarMethodApp.Controllers {
             console.log(this.selectedInstructor.userName);
             this.selectedInstructorClasses = this.BarClassResource.query({ id: this.selectedInstructor.userName });
             console.log(this.selectedInstructorClasses);
-
         }
 
         // save new items to database added on the list view
@@ -64,8 +62,6 @@ namespace BarMethodApp.Controllers {
         public newExercise;
         public selectedExercise;
 
-
-
         public getInstructors() {
             this.instructors = this.BarClassResource.query();
             console.log(this.instructors);
@@ -76,6 +72,7 @@ namespace BarMethodApp.Controllers {
                 console.log(this.selectedInstructor.userName);
                 this.selectedInstructorClasses = this.BarClassResource.query({ id: this.selectedInstructor.userName });
                 console.log(this.selectedInstructorClasses);
+                this.selectedInstructorClassExercises = null;
             }
         }
 
@@ -84,18 +81,18 @@ namespace BarMethodApp.Controllers {
                 console.log(this.selectedInstructor2.userName);
                 this.selectedInstructor2Classes = this.BarClassResource.query({ id: this.selectedInstructor2.userName });
                 console.log(this.selectedInstructor2Classes);
+                this.selectedInstructor2ClassExercises = null;
             }
         }
 
         public getExercises() {
-            this.selectedInstructorClassExercises = null;
-            if (this.selectedInstructorClass != null) {
+             if (this.selectedInstructorClass != null) {
                 console.log(this.selectedInstructorClass.id);
                 this.selectedInstructorClassExercises = this.ExerciseResource.query({ id: this.selectedInstructorClass.id });
                 console.log(this.selectedInstructorClassExercises);
              }
         }
-            
+             
         public getExercises2(){   
            if (this.selectedInstructor2Class != null) {
                 console.log(this.selectedInstructor2Class.id);
@@ -107,15 +104,40 @@ namespace BarMethodApp.Controllers {
         public updateExercise(exercise) {
             this.selectedExercise = exercise;
             console.log(this.selectedExercise);
-            this.ExerciseResource2.save(this.selectedExercise).$promise;
-            //this.getExercises();
-            //this.getExercises2();
+            this.ExerciseResource2.save(this.selectedExercise).$promise.then(() => {
+                this.getExercises();
+                this.getExercises2();    
+            });
         }
 
         public addExercise(newExercise) {
             console.log(this.selectedInstructorClass.id);
-            this.newExercise.description = newExercise.Description;
+            this.newExercise = newExercise;
+            console.log(this.newExercise);
+            this.ExerciseResource.save({ id: this.selectedInstructorClass.id }, this.newExercise).$promise.then(() => {
+                this.getExercises();
+                this.newExercise.description = null;
+            });
             console.log(this.newExercise.description);
+        }
+
+        public deleteExercise(exercise) {
+            this.selectedExercise = exercise;
+            this.ExerciseResource.delete({ id: this.selectedExercise.id }).$promise.then(() => {
+                this.getExercises(); 
+                this.getExercises2();   
+                });
+        }
+
+        public deleteBarMethodClass() {
+            if (this.selectedInstructorClass != null) {
+                console.log(this.selectedInstructorClass.id);
+                this.selectedInstructorClassExercises = this.BarClassResource.delete({ id: this.selectedInstructorClass.id }).$promise.then(() => {
+                    this.getClassesByInstructor();
+                    this.getClassesByInstructor2();
+                    this.selectedInstructorClass = null;
+                });
+            }
         }
 
         constructor(private $resource: angular.resource.IResourceService) {
@@ -127,12 +149,6 @@ namespace BarMethodApp.Controllers {
             //console.log(this.exercises);
             //})
             this.getInstructors();
-            this.getClassesByInstructor();
-            this.getClassesByInstructor2();
-            this.getExercises();
-            this.getExercises2();
-            //this.getClassesByInstructor();
-            //this.getExercises();
         }
     }
 

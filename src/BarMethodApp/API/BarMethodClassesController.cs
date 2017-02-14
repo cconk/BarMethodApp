@@ -32,8 +32,6 @@ namespace BarMethodApp.API
         public IList<ApplicationUserVM> Get()
         {
             return _barMethodClassesService.ListInstructors();
-            //var exercises = _db.BarClasses.Include(bc => bc.Exercises).ToList();
-            //return exercises;    
         }
 
         // GET api/values/5
@@ -54,14 +52,15 @@ namespace BarMethodApp.API
 
             if (newBarMethodClass.Name == "")
             {
-                //error messaging
+                return NotFound();
             }
+
             else
             { 
-                //_barMethodClasses services method for adding a new class
                 _barMethodClassesService.AddNewBarMethodClass(id, newBarMethodClass);
+                return Ok(newBarMethodClass);
             }
-            return Ok(newBarMethodClass);
+           
         }
 
 
@@ -70,14 +69,16 @@ namespace BarMethodApp.API
         [Authorize(Policy = "AdminOnly")]
         public IActionResult Delete(int id)
         {
-            //var barClass = _barMethodClassesService.FindBarClass(id);
-            //if (barClass == null)
-            //{
-            //    return NotFound();
-            //}
-            //_barMethodClassesService.DeleteBarClass(id);
-            ////_db.SaveChanges();
-            return Ok();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(this.ModelState);
+            }
+
+            else
+            { 
+                _barMethodClassesService.DeleteBarMethodClass(id);
+                return Ok();
+            }
         }
     }
  
