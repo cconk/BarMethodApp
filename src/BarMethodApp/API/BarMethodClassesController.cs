@@ -72,6 +72,7 @@ namespace BarMethodApp.API
             if (!ModelState.IsValid)
             {
                 return BadRequest(this.ModelState);
+                
             }
 
             else

@@ -3,27 +3,38 @@
     {{controller.message}}
 </p>
 
-<form ng-submit="controller.addBarMethodClass()">
-    <label>User Name:</label>
-        <select ng-model="controller.selectedInstructor" ng-options="instructor as instructor.userName for instructor in controller.instructors" ng-change="controller.getClassesByInstructor()">
-            <option value="0">Default</option>
-         </select>
-        <br />
-        <label>Class Name:</label>
-        <div>
-            <input ng-model="controller.newBarMethodClass.Name" />
+<form ng-submit="controller.addBarMethodClass()" class="form-horizontal">
+
+        <div class="col-lg-10">
+            <label for="select" class="col-lg-2 control-label">User Name:</label>
+            <select ng-model="controller.selectedInstructor" ng-options="instructor as instructor.userName for instructor in controller.instructors" ng-change="controller.getClassesByInstructor()" id="select" class="form-control">
+                <option value="0">Default</option>
+            </select>
         </div>
-        <br />
-        <label>Class Type:</label>
-        <div>
-            <input ng-model="controller.newBarMethodClass.Type" />
+        <br>
+        <div class="col-lg-10">
+            <label class="col-lg-2 control-label">Class Name:</label>
+            <div>
+                <input ng-model="controller.newBarMethodClass.Name" class="form-control" />
+            </div>
         </div>
-        <br />
-        <label>Date:</label>
-        <div>
-            <input ng-model="controller.newBarMethodClass.Date" />
+        <br>
+        <div class="col-lg-10">
+            <label class="col-lg-2 control-label">Class Type:</label>
+            <div>
+                <input ng-model="controller.newBarMethodClass.Type" class="form-control" />
+            </div>
         </div>
-        <br />
-        <input type="submit" value="Save" />
+        <br>
+        <div class="col-lg-10">
+            <label class="col-lg-2 control-label">Date:</label>
+            <div>
+                <input type="date" placeholder="MM/DD/YYYY" ng-model="controller.newBarMethodClass.Date" class="form-control" />
+            </div>
+        </div>
+        <br>
+        <div class="col-lg-10">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
 </form>
 

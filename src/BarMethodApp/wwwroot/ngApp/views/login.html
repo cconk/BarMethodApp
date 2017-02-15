@@ -16,16 +16,16 @@
         </li>
     </ul>
 
-    <form ng-submit="controller.login()">
+    <form class="form-horizontal" ng-submit="controller.login()">
         <div>
             <label>Email:</label>
-            <input ng-model="controller.loginUser.email" />
+            <input class="form-control" ng-model="controller.loginUser.email" />
         </div>
         <div>
             <label>Password:</label>
-            <input ng-model="controller.loginUser.password" />
+            <input class="form-control"type="password" ng-model="controller.loginUser.password" />
         </div>
-        <input type="submit" value="Login" />
-        <a href="/register">Register</a>
+        <input class="btn-primary" type="submit" value="Login" />
+        
     </form>
 </fieldset>

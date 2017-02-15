@@ -18,8 +18,12 @@ namespace BarMethodApp.Services {
         public getClaim(type) {
             var allClaims = JSON.parse(this.$window.sessionStorage.getItem('claims'));
             return allClaims ? allClaims[type] : null;
+           
         }
 
+        public getUserClaim() {
+            
+        }
 
         public login(loginUser) {
             return this.$q((resolve, reject) => {
@@ -58,6 +62,10 @@ namespace BarMethodApp.Services {
 
         public isLoggedIn() {
             return this.$window.sessionStorage.getItem('userName');
+        }
+
+        public isAdmin() {
+            return this.$window.sessionStorage.getItem('userClaim');
         }
 
         // associate external login (e.g., Twitter) with local user account

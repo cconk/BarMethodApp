@@ -1,18 +1,20 @@
 <html ng-app="BarMethodApp">
 <head>
-    <title>Bar Method App</title>
+    <title>Method my Bar</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/spacelab/bootstrap.min.css">
-    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    @*<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />*@
     <base href="/" />
 </head>
 <body ng-controller="AccountController as account">
     <div class="container">
-        <h1>Bar Method App</h1>
+        <h1>A Method To My Bar Madness</h1>
         <div>
-          <a href="/">Home</a> /
-          <a href="/addclass">Add Class</a> /
-          <a href="/editclass">Edit Class</a> /
+          <a href="/">Home /</a>
+          <a href="/addclass" ng-show="account.isLoggedIn()">Add Class /</a>
+          <a href="/editclass" ng-show="account.isLoggedIn()">Edit Class /</a>
+          <a href="/deleteclass" ng-show="account.getClaim('IsAdmin')">Delete Class /</a>  
           <a href="/login" ng-show="!account.isLoggedIn()">Login</a>
           <a href="#" ng-click="account.logout()" ng-show="account.isLoggedIn()">Logout</a>
         </div>
@@ -20,9 +22,15 @@
             [{{account.getUserName()}}]
         </div>
         <hr />
-
-        <ui-view></ui-view>
+        <ui-view></ui-view> 
     </div>
+    <div class="footer">
+        <footer>
+            <p>Background image courtesy of <a href="https://www.flickr.com/photos/pustovit/">Vladimir Pustovit</a>.</p>
+        </footer>
+    </div>
+
+
 
     <!-- Library Files -->
     <script src="/bower_components/angular/angular.js"></script>
@@ -38,7 +46,10 @@
     <script src="/ngapp/app.js"></script>
     <script src="/ngapp/controllers/controllers.js"></script>
     <script src="/ngapp/services/services.js"></script>
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 
 </body>
+
 </html>

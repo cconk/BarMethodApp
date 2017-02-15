@@ -1,6 +1,20 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color:darkgrey;
+    background-image: url('../images/dance.jpg');
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    
+}
+.footer{
+    position:absolute;
+    bottom:0;
+    right:0;
+    left:0;
+    color:azure;
+    text-align: center;
 }
 
 /* Wrapping element */
@@ -8,7 +22,39 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    
 }
+
+h1{
+    color:aqua;
+}
+
+h2{
+    color:aqua;
+}
+
+a{
+    color:aqua;
+    font-size:large;
+}
+
+div{
+    color: aqua;
+}
+
+select{
+    color:aqua;
+}
+
+th{
+    color:aqua;
+}
+
+input{
+    background-color:azure;
+    color:aqua;
+}
+
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
@@ -32,3 +78,5 @@ textarea {
         z-index: 10 !important;
     }
 }
+
+

@@ -2,7 +2,43 @@ namespace BarMethodApp.Controllers {
 
     export class HomeController {
         //register and login availability on view need a new API for security and point this controller to it
-        public message = 'Welcome to the Bar Method Class building app.  You can design your classes here and keep track of what you taught!';
+        public message = 'Welcome to the Bar Method Class building app.  Instuctors can design classes here and keep track of what you taught plus share them with clients';
+
+        private BarClassResource;
+        public instructors;
+        public selectedInstructor;
+        public selectedInstructorClasses;
+        public selectedInstructorClass;
+        public selectedInstructorClassExercises;
+        private ExerciseResource;
+
+        public getInstructors() {
+            this.instructors = this.BarClassResource.query();
+            console.log(this.instructors);
+        }
+
+        public getClassesByInstructor() {
+            if (this.selectedInstructor != null) {
+                console.log(this.selectedInstructor.userName);
+                this.selectedInstructorClasses = this.BarClassResource.query({ id: this.selectedInstructor.userName });
+                console.log(this.selectedInstructorClasses);
+                this.selectedInstructorClassExercises = null;
+            }
+        }
+
+        public getExercises() {
+            if (this.selectedInstructorClass != null) {
+                console.log(this.selectedInstructorClass.id);
+                this.selectedInstructorClassExercises = this.ExerciseResource.query({ id: this.selectedInstructorClass.id });
+                console.log(this.selectedInstructorClassExercises);
+            }
+        }
+
+        constructor(private $resource: angular.resource.IResourceService) {
+            this.BarClassResource = $resource('/api/barMethodClasses/:id');
+            this.ExerciseResource = $resource('/api/exercise/:id');
+            this.getInstructors();
+        }
 
     }
 
@@ -129,12 +165,42 @@ namespace BarMethodApp.Controllers {
                 });
         }
 
+        
+
+        constructor(private $resource: angular.resource.IResourceService) {
+            this.BarClassResource = $resource('/api/barMethodClasses/:id');
+            this.ExerciseResource = $resource('/api/exercise/:id');
+            this.ExerciseResource2 = $resource('/api/exercise');
+            this.getInstructors();
+        }
+    }
+
+    export class DeleteClassController {
+        public message = 'Select a class to delete';
+        private BarClassResource;
+        public instructors;
+        public selectedInstructor;
+        public selectedInstructorClasses;
+        public selectedInstructorClass;
+
+        public getInstructors() {
+            this.instructors = this.BarClassResource.query();
+            console.log(this.instructors);
+        }
+
+        public getClassesByInstructor() {
+            if (this.selectedInstructor != null) {
+                console.log(this.selectedInstructor.userName);
+                this.selectedInstructorClasses = this.BarClassResource.query({ id: this.selectedInstructor.userName });
+                console.log(this.selectedInstructorClasses);
+            }
+        }
+
         public deleteBarMethodClass() {
             if (this.selectedInstructorClass != null) {
                 console.log(this.selectedInstructorClass.id);
-                this.selectedInstructorClassExercises = this.BarClassResource.delete({ id: this.selectedInstructorClass.id }).$promise.then(() => {
+                this.BarClassResource.delete({ id: this.selectedInstructorClass.id }).$promise.then(() => {
                     this.getClassesByInstructor();
-                    this.getClassesByInstructor2();
                     this.selectedInstructorClass = null;
                 });
             }
@@ -142,12 +208,6 @@ namespace BarMethodApp.Controllers {
 
         constructor(private $resource: angular.resource.IResourceService) {
             this.BarClassResource = $resource('/api/barMethodClasses/:id');
-            this.ExerciseResource = $resource('/api/exercise/:id');
-            this.ExerciseResource2 = $resource('/api/exercise');
-            //this.$http.get('api/exercise/').then((response)=>{
-            //this.exercises = response.data;
-            //console.log(this.exercises);
-            //})
             this.getInstructors();
         }
     }
@@ -179,6 +239,7 @@ namespace BarMethodApp.Controllers {
         constructor(private accountService: BarMethodApp.Services.AccountService, private $location: ng.ILocationService) {
             this.getExternalLogins().then((results) => {
                 this.externalLogins = results;
+                console.log(this.externalLogins);
             });
         }
     }
@@ -253,5 +314,4 @@ namespace BarMethodApp.Controllers {
                 });
         }
     }
-
 }
