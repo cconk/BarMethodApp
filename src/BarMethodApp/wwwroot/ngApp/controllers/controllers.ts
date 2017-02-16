@@ -18,6 +18,7 @@ namespace BarMethodApp.Controllers {
         }
 
         public getClassesByInstructor() {
+            
             if (this.selectedInstructor != null) {
                 console.log(this.selectedInstructor.userName);
                 this.selectedInstructorClasses = this.BarClassResource.query({ id: this.selectedInstructor.userName });
@@ -34,10 +35,11 @@ namespace BarMethodApp.Controllers {
             }
         }
 
-        constructor(private $resource: angular.resource.IResourceService) {
+        constructor(public $state: ng.ui.IStateService, private $resource: angular.resource.IResourceService) {
             this.BarClassResource = $resource('/api/barMethodClasses/:id');
             this.ExerciseResource = $resource('/api/exercise/:id');
             this.getInstructors();
+
         }
 
     }
@@ -49,6 +51,7 @@ namespace BarMethodApp.Controllers {
         public instructors;
         public selectedInstructor;
         public selectedInstructorClasses;
+        public currentUserName;
 
         //get instructors
         public getInstructors() {
@@ -56,31 +59,37 @@ namespace BarMethodApp.Controllers {
             console.log(this.instructors);
         }
 
+        public getUserName() {
+            this.currentUserName = this.accountService.getUserName();
+            console.log(this.currentUserName);
+        }
+
         public getClassesByInstructor() {
-            console.log(this.selectedInstructor.userName);
-            this.selectedInstructorClasses = this.BarClassResource.query({ id: this.selectedInstructor.userName });
+            console.log(this.currentUserName);
+            this.selectedInstructorClasses = this.BarClassResource.query({ id: this.currentUserName });
             console.log(this.selectedInstructorClasses);
         }
 
         // save new items to database added on the list view
         private addBarMethodClass() {
-            console.log(this.selectedInstructor.userName);
+            console.log(this.currentUserName);
             console.log(this.newBarMethodClass);
-            this.BarClassResource.save({ id: this.selectedInstructor.userName }, this.newBarMethodClass).$promise;
+            this.BarClassResource.save({ id: this.currentUserName }, this.newBarMethodClass).$promise;
             this.selectedInstructor = null;
             this.newBarMethodClass = null;
         }
 
         //constructor to create items and test get items method
-        constructor(private $resource: angular.resource.IResourceService) {
+        constructor(public $state: ng.ui.IStateService, private accountService: BarMethodApp.Services.AccountService, private $resource: angular.resource.IResourceService) {
             this.BarClassResource = $resource('/api/barMethodClasses/:id');
             this.getInstructors();
+            this.getUserName();
         }
     }
 
     export class EditClassController {
         //edit classes adding exercises etc.
-        public message = 'Select an instructor and a class to edit';
+        public message = 'Select a class to edit';
         public message2 = 'Select an instructor and class to see what they did';
 
         private BarClassResource;
@@ -97,19 +106,23 @@ namespace BarMethodApp.Controllers {
         private ExerciseResource2;
         public newExercise;
         public selectedExercise;
+        public currentUserName;
 
         public getInstructors() {
             this.instructors = this.BarClassResource.query();
             console.log(this.instructors);
         }
 
+        public getUserName() {
+            this.currentUserName = this.accountService.getUserName();
+            console.log(this.currentUserName);
+        }
+
         public getClassesByInstructor() {
-            if (this.selectedInstructor != null) {
-                console.log(this.selectedInstructor.userName);
-                this.selectedInstructorClasses = this.BarClassResource.query({ id: this.selectedInstructor.userName });
+                console.log(this.currentUserName);
+                this.selectedInstructorClasses = this.BarClassResource.query({ id: this.currentUserName });
                 console.log(this.selectedInstructorClasses);
                 this.selectedInstructorClassExercises = null;
-            }
         }
 
         public getClassesByInstructor2() {
@@ -167,11 +180,13 @@ namespace BarMethodApp.Controllers {
 
         
 
-        constructor(private $resource: angular.resource.IResourceService) {
+        constructor(public $state: ng.ui.IStateService, private accountService: BarMethodApp.Services.AccountService, private $resource: angular.resource.IResourceService) {
             this.BarClassResource = $resource('/api/barMethodClasses/:id');
             this.ExerciseResource = $resource('/api/exercise/:id');
             this.ExerciseResource2 = $resource('/api/exercise');
             this.getInstructors();
+            this.getUserName();
+            this.getClassesByInstructor();
         }
     }
 
@@ -206,7 +221,7 @@ namespace BarMethodApp.Controllers {
             }
         }
 
-        constructor(private $resource: angular.resource.IResourceService) {
+        constructor(public $state: ng.ui.IStateService, private $resource: angular.resource.IResourceService) {
             this.BarClassResource = $resource('/api/barMethodClasses/:id');
             this.getInstructors();
         }
@@ -236,7 +251,7 @@ namespace BarMethodApp.Controllers {
             return this.accountService.getExternalLogins();
         }
 
-        constructor(private accountService: BarMethodApp.Services.AccountService, private $location: ng.ILocationService) {
+        constructor(public $state: ng.ui.IStateService, private accountService: BarMethodApp.Services.AccountService, private $location: ng.ILocationService) {
             this.getExternalLogins().then((results) => {
                 this.externalLogins = results;
                 console.log(this.externalLogins);
@@ -260,7 +275,7 @@ namespace BarMethodApp.Controllers {
             console.log(this.loginUser);
         }
 
-        constructor(private accountService: BarMethodApp.Services.AccountService, private $location: ng.ILocationService) { }
+        constructor(public $state: ng.ui.IStateService, private accountService: BarMethodApp.Services.AccountService, private $location: ng.ILocationService) { }
     }
 
     export class RegisterController {
@@ -275,7 +290,7 @@ namespace BarMethodApp.Controllers {
             });
         }
 
-        constructor(private accountService: BarMethodApp.Services.AccountService, private $location: ng.ILocationService) { }
+        constructor(public $state: ng.ui.IStateService, private accountService: BarMethodApp.Services.AccountService, private $location: ng.ILocationService) { }
     }
 
     export class ExternalRegisterController {
@@ -291,7 +306,7 @@ namespace BarMethodApp.Controllers {
                 });
         }
 
-        constructor(private accountService: BarMethodApp.Services.AccountService, private $location: ng.ILocationService) { }
+        constructor(public $state: ng.ui.IStateService, private accountService: BarMethodApp.Services.AccountService, private $location: ng.ILocationService) { }
 
     }
 
@@ -302,7 +317,8 @@ namespace BarMethodApp.Controllers {
             private accountService: BarMethodApp.Services.AccountService,
             private $http: ng.IHttpService,
             private $stateParams: ng.ui.IStateParamsService,
-            private $location: ng.ILocationService
+            private $location: ng.ILocationService,
+            public $state: ng.ui.IStateService 
         ) {
             let userId = $stateParams['userId'];
             let code = $stateParams['code'];

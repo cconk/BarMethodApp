@@ -8,9 +8,11 @@
         <select class="form-control" ng-model="controller.selectedInstructor" ng-options="instructor as instructor.userName for instructor in controller.instructors" ng-change="controller.getClassesByInstructor()">
             <option value="0">Default</option>
         </select>
+        <br />
         <select class="form-control" ng-model="controller.selectedInstructorClass" ng-options='(selectedInstructorClass.name+" "+(selectedInstructorClass.date | date:"MM-dd-yy")) for selectedInstructorClass in controller.selectedInstructorClasses' ng-change="controller.getExercises()">
             <option value="0">Default</option>
         </select>
-        <input type="submit" class="btn btn-primary" value="Delete this class" ng-click="controller.deleteBarMethodClass(selectedInstructorClass)" />
+        <br />
+        <input type="submit" class="btn btn-info" value="Delete this class" ng-click="controller.deleteBarMethodClass(selectedInstructorClass)" />
     </form>
 </div>

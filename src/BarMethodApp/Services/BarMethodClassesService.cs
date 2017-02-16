@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BarMethodApp.ViewModels;
 using BarMethodApp.Models;
 using Microsoft.EntityFrameworkCore;
+using BarMethodApp.Controllers;
 
 namespace BarMethodApp.Services
 {
@@ -21,7 +22,7 @@ namespace BarMethodApp.Services
         public IList<ApplicationUserVM> ListInstructors()
         {
             var barInstructors = (from i in _repo.Query<ApplicationUser>()
-                                  select new ApplicationUserVM()
+                                  select new ApplicationUserVM() 
                                   {
                                       FirstName = i.FirstName,
                                       LastName = i.LastName,

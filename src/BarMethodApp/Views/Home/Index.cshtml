@@ -11,16 +11,17 @@
     <div class="container">
         <h1>A Method To My Bar Madness</h1>
         <div>
-          <a href="/">Home /</a>
-          <a href="/addclass" ng-show="account.isLoggedIn()">Add Class /</a>
-          <a href="/editclass" ng-show="account.isLoggedIn()">Edit Class /</a>
-          <a href="/deleteclass" ng-show="account.getClaim('IsAdmin')">Delete Class /</a>  
-          <a href="/login" ng-show="!account.isLoggedIn()">Login</a>
+            <span><a ui-sref="home">Home</a> | </span>
+            <span ng-show="account.isLoggedIn()"><a ui-sref="addclass" >Add Class</a> | </span>
+            <span ng-show="account.isLoggedIn()"><a ui-sref="editclass">Edit Class</a> | </span>
+            <span ng-show="account.getClaim('IsAdmin')"><a ui-sref="deleteclass">Delete Class</a> | </span>  
+          <a ui-sref="login" ng-show="!account.isLoggedIn()">Login</a>
           <a href="#" ng-click="account.logout()" ng-show="account.isLoggedIn()">Logout</a>
         </div>
         <div ng-show="account.isLoggedIn()">
-            [{{account.getUserName()}}]
+            Your logged in as {{account.getUserName()}}
         </div>
+        
         <hr />
         <ui-view></ui-view> 
     </div>

@@ -26,34 +26,54 @@ body {
 }
 
 h1{
-    color:aqua;
+    color:deepskyblue;
 }
 
 h2{
-    color:aqua;
+    color:deepskyblue;
 }
 
 a{
-    color:aqua;
+    color:deepskyblue;
     font-size:large;
 }
 
 div{
-    color: aqua;
+    color:deepskyblue;
 }
 
 select{
-    color:aqua;
+    color:deepskyblue;
 }
 
 th{
-    color:aqua;
+    color:deepskyblue;
+}
+
+tr{
+    color:deepskyblue;
 }
 
 input{
-    background-color:azure;
-    color:aqua;
+    background-color:transparent;
+    color:deepskyblue;
 }
+ tbody{
+     background-color: rgba(0,0,0,0.0);
+ }
+ 
+form{
+    background-color: transparent;
+ }
+.form-control{
+    color:deepskyblue;
+    background-color:transparent;
+}
+
+btn.btn-info{
+    background-color:deepskyblue;
+}
+
 
 
 /* Set widths on the form inputs since otherwise they're 100% wide */

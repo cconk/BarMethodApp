@@ -1,22 +1,16 @@
 ﻿<h2>Add a new Class here</h2>
-<p>
-    {{controller.message}}
-</p>
+    <p>
+        {{controller.message}}
+    </p>
+
 
 <form ng-submit="controller.addBarMethodClass()" class="form-horizontal">
-
-        <div class="col-lg-10">
-            <label for="select" class="col-lg-2 control-label">User Name:</label>
-            <select ng-model="controller.selectedInstructor" ng-options="instructor as instructor.userName for instructor in controller.instructors" ng-change="controller.getClassesByInstructor()" id="select" class="form-control">
-                <option value="0">Default</option>
-            </select>
-        </div>
-        <br>
         <div class="col-lg-10">
             <label class="col-lg-2 control-label">Class Name:</label>
             <div>
                 <input ng-model="controller.newBarMethodClass.Name" class="form-control" />
             </div>
+            <br />
         </div>
         <br>
         <div class="col-lg-10">
@@ -24,6 +18,7 @@
             <div>
                 <input ng-model="controller.newBarMethodClass.Type" class="form-control" />
             </div>
+            <br />
         </div>
         <br>
         <div class="col-lg-10">
@@ -31,10 +26,11 @@
             <div>
                 <input type="date" placeholder="MM/DD/YYYY" ng-model="controller.newBarMethodClass.Date" class="form-control" />
             </div>
+            <br />
         </div>
-        <br>
-        <div class="col-lg-10">
-            <input type="submit" value="Save" class="btn btn-primary" />
+        <br />
+        <div class="col-lg-10 col-lg-offset-4" >
+            <input type="submit" value="Save" class="btn btn-info"/>
         </div>
 </form>
 

@@ -1,21 +1,22 @@
 <h2>Home</h2>
-<p>
+<p class="info">
     {{controller.message}}
 </p>
 
 <p>Pick a teacher and class to take a peek at how you barred or will be soon!</p>
 <form class="form-horizontal">
-    <select class="form-control" ng-model="controller.selectedInstructor" ng-options="instructor as instructor.userName for instructor in controller.instructors" ng-change="controller.getClassesByInstructor()">
+    <select class="form-control" style="background-color:transparent" ng-model="controller.selectedInstructor" ng-options="instructor as instructor.userName for instructor in controller.instructors" ng-change="controller.getClassesByInstructor()">
         <option value="0">Default</option>
     </select>
-    <select class="form-control" ng-model="controller.selectedInstructorClass" ng-options='(selectedInstructorClass.name+" "+(selectedInstructorClass.date | date:"MM-dd-yy")) for selectedInstructorClass in controller.selectedInstructorClasses' ng-change="controller.getExercises()">
+    <br />
+    <select class="form-control" style="background-color:transparent" ng-model="controller.selectedInstructorClass" ng-options='(selectedInstructorClass.name+" "+(selectedInstructorClass.date | date:"MM-dd-yy")) for selectedInstructorClass in controller.selectedInstructorClasses' ng-change="controller.getExercises()">
         <option value="0">Default</option>
     </select>
 </form>
 
-<form class="form-horizontal">
+<form>
     <div>
-        <table class="table table-striped table-hover">
+        <table>
             <thead>
                 <tr>
                     <th>And here's your tucking awesome exercises!</th>
