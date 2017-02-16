@@ -64,8 +64,9 @@ namespace BarMethodApp.API
             }
 
             else
-            { 
-                _exerciseService.UpdateExercise(exercise);
+            {
+                var userName = User.Identity.Name;
+                _exerciseService.UpdateExercise(userName, exercise);
                 return Ok();
             }
         }

@@ -1,9 +1,8 @@
-<h2>Home</h2>
-<p class="info">
+<p>
     {{controller.message}}
 </p>
 
-<p>Pick a teacher and class to take a peek at how you barred or will be soon!</p>
+<p>Pick a teacher and class to review content</p>
 <form class="form-horizontal">
     <select class="form-control" style="background-color:transparent" ng-model="controller.selectedInstructor" ng-options="instructor as instructor.userName for instructor in controller.instructors" ng-change="controller.getClassesByInstructor()">
         <option value="0">Default</option>
@@ -15,11 +14,12 @@
 </form>
 
 <form>
+    <p>Here are the exercises:</p>
     <div>
         <table>
             <thead>
                 <tr>
-                    <th>And here's your tucking awesome exercises!</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

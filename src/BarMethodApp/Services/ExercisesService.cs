@@ -48,12 +48,32 @@ namespace BarMethodApp.Services
             return exercises;
         }
 
-        public void UpdateExercise(Exercise selectedExercise)
+        public void UpdateExercise(string userName, Exercise selectedExercise)
         {
-            var exercisetoUpdate = (from e in _repo.Query<Exercise>() where e.Id == selectedExercise.Id select e).FirstOrDefault();
-            exercisetoUpdate.Description = selectedExercise.Description;
-            _repo.Update(exercisetoUpdate);
-            _repo.SaveChanges();
+            var exercisetoUpdate = (from e in _repo.Query<Exercise>() where e.Id == selectedExercise.Id
+                                    select new Exercise()
+                                    {
+                                        Id = e.Id,
+                                        Description = e.Description,
+                                        Name = e.Name,
+                                        Order = e.Order,
+                                        Type = e.Type,
+                                        BarMethodClasses = (from b in e.BarMethodClasses select new BMCExercise()
+                                        {
+                                            BMClass = new BarMethodClass()
+                                            {
+                                                Instructor=b.BMClass.Instructor
+                                            }
+                                        }).ToList()
+                                    }).FirstOrDefault();
+            var instructor = exercisetoUpdate.BarMethodClasses[0].BMClass.Instructor;
+            if (instructor.UserName == userName)
+            {
+                exercisetoUpdate.BarMethodClasses = null;
+                exercisetoUpdate.Description = selectedExercise.Description;
+                _repo.Update(exercisetoUpdate);
+                _repo.SaveChanges();
+            }
         }
 
         public void AddExercise(int id, Exercise newExercise)

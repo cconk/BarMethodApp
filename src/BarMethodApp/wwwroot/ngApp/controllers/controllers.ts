@@ -2,7 +2,7 @@ namespace BarMethodApp.Controllers {
 
     export class HomeController {
         //register and login availability on view need a new API for security and point this controller to it
-        public message = 'Welcome to the Bar Method Class building app.  Instuctors can design classes here and keep track of what you taught plus share them with clients';
+        public message = 'Welcome to Coreganize. An app to help you design, review and share Bar Method choreographies';
 
         private BarClassResource;
         public instructors;
@@ -45,7 +45,7 @@ namespace BarMethodApp.Controllers {
     }
 
     export class AddClassController {
-        public message = 'Please enter all of the information requested below to add a new class.';
+        public message = 'Please enter all of the information requested below to add a new class';
         private BarClassResource;
         public newBarMethodClass;
         public instructors;
@@ -90,7 +90,7 @@ namespace BarMethodApp.Controllers {
     export class EditClassController {
         //edit classes adding exercises etc.
         public message = 'Select a class to edit';
-        public message2 = 'Select an instructor and class to see what they did';
+        public message2 = 'Select an instructor and class to review';
 
         private BarClassResource;
         public instructors;

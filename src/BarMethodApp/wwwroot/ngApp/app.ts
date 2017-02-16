@@ -37,6 +37,18 @@ namespace BarMethodApp {
                 controller: BarMethodApp.Controllers.LoginController,
                 controllerAs: 'controller'
             })
+            .state('register', {
+                url: '/register',
+                templateUrl: '/ngApp/views/register.html',
+                controller: BarMethodApp.Controllers.RegisterController,
+                controllerAs: 'controller'
+            })
+            .state('externalRegister', {
+                url: '/externalRegister',
+                templateUrl: '/ngApp/views/externalRegister.html',
+                controller: BarMethodApp.Controllers.ExternalRegisterController,
+                controllerAs: 'controller'
+            }) 
             .state('notFound', {
                 url: '/notFound',
                 templateUrl: '/ngApp/views/notFound.html'

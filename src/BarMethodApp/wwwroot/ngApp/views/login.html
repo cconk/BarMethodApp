@@ -1,23 +1,22 @@
-﻿<fieldset>
-    <legend>Login Locally</legend>
-    <ul>
-        <li ng-repeat="error in controller.validationMessages">
-            {{error}}
-        </li>
-    </ul>
+﻿    <fieldset>
+        <ul>
+            <li ng-repeat="error in controller.validationMessages">
+                {{error}}
+            </li>
+        </ul>
 
-    <form class="form-horizontal" ng-submit="controller.login()">
-        <div>
-            <label>Email:</label>
-            <input class="form-control" ng-model="controller.loginUser.email" />
-        </div>
-        <div>
-            <label>Password:</label>
-            <input class="form-control" type="password" ng-model="controller.loginUser.password" />
+        <form class="form-horizontal" ng-submit="controller.login()">
+            <div>
+                <label>Email:</label>
+                <input class="form-control" ng-model="controller.loginUser.email" />
+            </div>
+            <div>
+                <label>Password:</label>
+                <input class="form-control" type="password" ng-model="controller.loginUser.password" />
+                <br />
+            </div>
             <br />
-        </div>
-        <br />
-        <input class="btn btn-info" type="submit" value="Login" />
-        
-    </form>
-</fieldset>
+            <input class="btn btn-info" type="submit" value="Login" />
+            <a href="/register">Register</a>
+        </form>
+    </fieldset>
