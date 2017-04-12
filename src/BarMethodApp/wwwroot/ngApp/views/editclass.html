@@ -21,7 +21,7 @@
                     <tr>
                         <td>
                             <form ng-repeat="exercise in controller.selectedInstructorClassExercises" >
-                                <input class="form-control"placeholder="{{exercise.description}}" ng-model="exercise.description"/>
+                                <textarea class="form-control" placeholder="{{exercise.description}}" ng-model="exercise.description"></textarea>
                                 <br />
                                 <input type="submit" class="btn btn-info" value="Update" ng-click="controller.updateExercise(exercise)" />
                                 <input type="submit" class="btn btn-info" value="Delete" ng-click="controller.deleteExercise(exercise)" ng-hide="" />

@@ -1,0 +1,31 @@
+﻿<p>
+    {{controller.message}}
+</p>
+
+<form class="form-horizontal">
+    <select class="form-control" ng-model="controller.selectedInstructor" ng-options="instructor as instructor.userName for instructor in controller.instructors" ng-change="controller.getClassesByInstructor()">
+        <option value="0">Default</option>
+    </select>
+    <br />
+    <select class="form-control" ng-model="controller.selectedInstructorClass" ng-options='(selectedInstructorClass.name+" "+(selectedInstructorClass.date | date:"MM-dd-yy")) for selectedInstructorClass in controller.selectedInstructorClasses' ng-change="controller.getExercises()">
+        <option value="0">Default</option>
+    </select>
+</form>
+
+<form class="form-horizontal">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Exercises</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="exercise in controller.selectedInstructorClassExercises" class="info">
+                    <td>{{exercise.description}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+</div>

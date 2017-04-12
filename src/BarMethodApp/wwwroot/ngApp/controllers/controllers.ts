@@ -2,7 +2,7 @@ namespace BarMethodApp.Controllers {
 
     export class HomeController {
         //register and login availability on view need a new API for security and point this controller to it
-        public message = 'Welcome to Coreganize. An app to help you design, review and share Bar Method choreographies';
+        public message = 'Welcome to Korganize. An app to help you design, review and share Bar Method choreographies';
 
         private BarClassResource;
         public instructors;
@@ -178,8 +178,6 @@ namespace BarMethodApp.Controllers {
                 });
         }
 
-        
-
         constructor(public $state: ng.ui.IStateService, private accountService: BarMethodApp.Services.AccountService, private $resource: angular.resource.IResourceService) {
             this.BarClassResource = $resource('/api/barMethodClasses/:id');
             this.ExerciseResource = $resource('/api/exercise/:id');
@@ -224,6 +222,50 @@ namespace BarMethodApp.Controllers {
         constructor(public $state: ng.ui.IStateService, private $resource: angular.resource.IResourceService) {
             this.BarClassResource = $resource('/api/barMethodClasses/:id');
             this.getInstructors();
+        }
+    }
+
+    export class ViewClassController {
+        public message = 'Select a class to view or teach';
+        public BarClassResource;
+        public instructors;
+        public selectedInstructor;
+        public selectedInstructorClasses;
+        public selectedInstructorClass;
+        public selectedInstructorClassExercises;
+        public ExerciseResource;
+        public currentUserName;
+
+        public getInstructors() {
+            this.instructors = this.BarClassResource.query();
+            console.log(this.instructors);
+        }
+
+        public getUserName() {
+            this.currentUserName = this.accountService.getUserName();
+            console.log(this.currentUserName);
+        }
+
+        public getClassesByInstructor() {
+            console.log(this.currentUserName);
+            this.selectedInstructorClasses = this.BarClassResource.query({ id: this.currentUserName });
+            console.log(this.selectedInstructorClasses);
+            this.selectedInstructorClassExercises = null;
+        }
+
+        public getExercises() {
+            if (this.selectedInstructorClass != null) {
+                console.log(this.selectedInstructorClass.id);
+                this.selectedInstructorClassExercises = this.ExerciseResource.query({ id: this.selectedInstructorClass.id });
+                console.log(this.selectedInstructorClassExercises);
+            }
+        }
+
+        constructor(public $state: ng.ui.IStateService, private $resource: angular.resource.IResourceService, private accountService: BarMethodApp.Services.AccountService) {
+            this.BarClassResource = $resource('/api/barMethodClasses/:id');
+            this.ExerciseResource = $resource('/api/exercise/:id');
+            this.getInstructors();
+            this.getUserName();
         }
     }
 

@@ -103,20 +103,6 @@ namespace BarMethodApp.Data
 
             db.SaveChanges();
 
-
-            //if (!db.BarMethodClasses.Any())
-            //{
-            //    db.BarMethodClasses.AddRange(
-            //        new BarMethodClass { Name = "Class 1", Date = DateTime.Parse("2017-1-1"), Type = "Level 1" },
-            //        new BarMethodClass { Name = "Class 2", Date = DateTime.Parse("2017-1-2"), Type = "Level 2" },
-            //        new BarMethodClass { Name = "Class 3", Date = DateTime.Parse("2017-1-3"), Type = "Mixed Level" },
-            //        new BarMethodClass { Name = "Class 4", Date = DateTime.Parse("2017-1-4"), Type = "Level 1" },
-            //        new BarMethodClass { Name = "Class 5", Date = DateTime.Parse("2017-1-4"), Type = "Level 2" },
-            //        new BarMethodClass { Name = "Class 6", Date = DateTime.Parse("2017-1-6"), Type = "Mixed Level" }
-            //        );
-            //    db.SaveChanges();
-            //}
-
             if (!db.Exercises.Any())
             {
                 db.Exercises.AddRange(

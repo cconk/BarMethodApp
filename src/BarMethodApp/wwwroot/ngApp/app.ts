@@ -31,6 +31,12 @@ namespace BarMethodApp {
                 controller: BarMethodApp.Controllers.DeleteClassController,
                 controllerAs: 'controller'
             })
+            .state('viewclass', {
+                url: '/viewclass',
+                templateUrl: '/ngApp/views/viewclass.html',
+                controller: BarMethodApp.Controllers.ViewClassController,
+                controllerAs: 'controller'
+            })
             .state('login', {
                 url: '/login',
                 templateUrl: '/ngApp/views/login.html',

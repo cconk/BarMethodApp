@@ -24,32 +24,38 @@ body {
 }
 
 h1{
-    color:deepskyblue;
+    color:white;
+    outline-color:black;
 }
 
 h2{
-    color:deepskyblue;
+    color:white;
+    outline-color:black;
 }
 
 a{
-    color:deepskyblue;
-    font-size:large;
+    color:white;
+    outline-color:black;
 }
 
 div{
-    color:deepskyblue;
+    color:white;
+    outline-color:black;
 }
 
 select{
-    color:deepskyblue;
+    color:white;
+    outline-color:black;
 }
 
 th{
-    color:deepskyblue;
+    color:white;
+    outline-color:black;
 }
 
 tr{
-    color:deepskyblue;
+    color:white;
+    outline-color:black;
 }
 
 input{
@@ -70,6 +76,8 @@ form{
 
 btn.btn-info{
     background-color:deepskyblue;
+    color:white;
+    outline-color:black;
 }
 
 
