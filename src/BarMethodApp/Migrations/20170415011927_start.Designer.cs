@@ -8,7 +8,7 @@ using BarMethodApp.Data;
 namespace BarMethodApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170202003815_start")]
+    [Migration("20170415011927_start")]
     partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

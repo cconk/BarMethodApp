@@ -14,24 +14,24 @@ namespace BarMethodApp.Controllers {
 
         public getInstructors() {
             this.instructors = this.BarClassResource.query();
-            console.log(this.instructors);
+            //console.log(this.instructors);
         }
 
         public getClassesByInstructor() {
             
             if (this.selectedInstructor != null) {
-                console.log(this.selectedInstructor.userName);
+                //console.log(this.selectedInstructor.userName);
                 this.selectedInstructorClasses = this.BarClassResource.query({ id: this.selectedInstructor.userName });
-                console.log(this.selectedInstructorClasses);
+                //console.log(this.selectedInstructorClasses);
                 this.selectedInstructorClassExercises = null;
             }
         }
 
         public getExercises() {
             if (this.selectedInstructorClass != null) {
-                console.log(this.selectedInstructorClass.id);
+                //console.log(this.selectedInstructorClass.id);
                 this.selectedInstructorClassExercises = this.ExerciseResource.query({ id: this.selectedInstructorClass.id });
-                console.log(this.selectedInstructorClassExercises);
+                //console.log(this.selectedInstructorClassExercises);
             }
         }
 
@@ -56,24 +56,24 @@ namespace BarMethodApp.Controllers {
         //get instructors
         public getInstructors() {
             this.instructors = this.BarClassResource.query();
-            console.log(this.instructors);
+            //console.log(this.instructors);
         }
 
         public getUserName() {
             this.currentUserName = this.accountService.getUserName();
-            console.log(this.currentUserName);
+            //console.log(this.currentUserName);
         }
 
         public getClassesByInstructor() {
-            console.log(this.currentUserName);
+            //console.log(this.currentUserName);
             this.selectedInstructorClasses = this.BarClassResource.query({ id: this.currentUserName });
-            console.log(this.selectedInstructorClasses);
+            //console.log(this.selectedInstructorClasses);
         }
 
         // save new items to database added on the list view
         private addBarMethodClass() {
-            console.log(this.currentUserName);
-            console.log(this.newBarMethodClass);
+            //console.log(this.currentUserName);
+            //console.log(this.newBarMethodClass);
             this.BarClassResource.save({ id: this.currentUserName }, this.newBarMethodClass).$promise;
             this.selectedInstructor = null;
             this.newBarMethodClass = null;
@@ -110,49 +110,49 @@ namespace BarMethodApp.Controllers {
 
         public getInstructors() {
             this.instructors = this.BarClassResource.query();
-            console.log(this.instructors);
+            //console.log(this.instructors);
         }
 
         public getUserName() {
             this.currentUserName = this.accountService.getUserName();
-            console.log(this.currentUserName);
+            //console.log(this.currentUserName);
         }
 
         public getClassesByInstructor() {
-                console.log(this.currentUserName);
+                //console.log(this.currentUserName);
                 this.selectedInstructorClasses = this.BarClassResource.query({ id: this.currentUserName });
-                console.log(this.selectedInstructorClasses);
+                //console.log(this.selectedInstructorClasses);
                 this.selectedInstructorClassExercises = null;
         }
 
         public getClassesByInstructor2() {
             if (this.selectedInstructor2 != null) {
-                console.log(this.selectedInstructor2.userName);
+                //console.log(this.selectedInstructor2.userName);
                 this.selectedInstructor2Classes = this.BarClassResource.query({ id: this.selectedInstructor2.userName });
-                console.log(this.selectedInstructor2Classes);
+                //console.log(this.selectedInstructor2Classes);
                 this.selectedInstructor2ClassExercises = null;
             }
         }
 
         public getExercises() {
              if (this.selectedInstructorClass != null) {
-                console.log(this.selectedInstructorClass.id);
+                //console.log(this.selectedInstructorClass.id);
                 this.selectedInstructorClassExercises = this.ExerciseResource.query({ id: this.selectedInstructorClass.id });
-                console.log(this.selectedInstructorClassExercises);
+                //console.log(this.selectedInstructorClassExercises);
              }
         }
              
         public getExercises2(){   
            if (this.selectedInstructor2Class != null) {
-                console.log(this.selectedInstructor2Class.id);
+                //console.log(this.selectedInstructor2Class.id);
                 this.selectedInstructor2ClassExercises = this.ExerciseResource.query({ id: this.selectedInstructor2Class.id });
-                console.log(this.selectedInstructor2ClassExercises);
+                //console.log(this.selectedInstructor2ClassExercises);
             }
         }
     
         public updateExercise(exercise) {
             this.selectedExercise = exercise;
-            console.log(this.selectedExercise);
+            //console.log(this.selectedExercise);
             this.ExerciseResource2.save(this.selectedExercise).$promise.then(() => {
                 this.getExercises();
                 this.getExercises2();    
@@ -160,9 +160,9 @@ namespace BarMethodApp.Controllers {
         }
 
         public addExercise(newExercise) {
-            console.log(this.selectedInstructorClass.id);
+            //console.log(this.selectedInstructorClass.id);
             this.newExercise = newExercise;
-            console.log(this.newExercise);
+            //console.log(this.newExercise);
             this.ExerciseResource.save({ id: this.selectedInstructorClass.id }, this.newExercise).$promise.then(() => {
                 this.getExercises();
                 this.newExercise.description = null;
@@ -198,20 +198,20 @@ namespace BarMethodApp.Controllers {
 
         public getInstructors() {
             this.instructors = this.BarClassResource.query();
-            console.log(this.instructors);
+            //console.log(this.instructors);
         }
 
         public getClassesByInstructor() {
             if (this.selectedInstructor != null) {
-                console.log(this.selectedInstructor.userName);
+                //console.log(this.selectedInstructor.userName);
                 this.selectedInstructorClasses = this.BarClassResource.query({ id: this.selectedInstructor.userName });
-                console.log(this.selectedInstructorClasses);
+                //console.log(this.selectedInstructorClasses);
             }
         }
 
         public deleteBarMethodClass() {
             if (this.selectedInstructorClass != null) {
-                console.log(this.selectedInstructorClass.id);
+                //console.log(this.selectedInstructorClass.id);
                 this.BarClassResource.delete({ id: this.selectedInstructorClass.id }).$promise.then(() => {
                     this.getClassesByInstructor();
                     this.selectedInstructorClass = null;
@@ -238,26 +238,26 @@ namespace BarMethodApp.Controllers {
 
         public getInstructors() {
             this.instructors = this.BarClassResource.query();
-            console.log(this.instructors);
+            //console.log(this.instructors);
         }
 
         public getUserName() {
             this.currentUserName = this.accountService.getUserName();
-            console.log(this.currentUserName);
+            //console.log(this.currentUserName);
         }
 
         public getClassesByInstructor() {
-            console.log(this.currentUserName);
+            //console.log(this.currentUserName);
             this.selectedInstructorClasses = this.BarClassResource.query({ id: this.currentUserName });
-            console.log(this.selectedInstructorClasses);
+            //console.log(this.selectedInstructorClasses);
             this.selectedInstructorClassExercises = null;
         }
 
         public getExercises() {
             if (this.selectedInstructorClass != null) {
-                console.log(this.selectedInstructorClass.id);
+                //console.log(this.selectedInstructorClass.id);
                 this.selectedInstructorClassExercises = this.ExerciseResource.query({ id: this.selectedInstructorClass.id });
-                console.log(this.selectedInstructorClassExercises);
+                //console.log(this.selectedInstructorClassExercises);
             }
         }
 
@@ -266,6 +266,7 @@ namespace BarMethodApp.Controllers {
             this.ExerciseResource = $resource('/api/exercise/:id');
             this.getInstructors();
             this.getUserName();
+            this.getClassesByInstructor();
         }
     }
 
@@ -296,7 +297,7 @@ namespace BarMethodApp.Controllers {
         constructor(public $state: ng.ui.IStateService, private accountService: BarMethodApp.Services.AccountService, private $location: ng.ILocationService) {
             this.getExternalLogins().then((results) => {
                 this.externalLogins = results;
-                console.log(this.externalLogins);
+                //console.log(this.externalLogins);
             });
         }
     }

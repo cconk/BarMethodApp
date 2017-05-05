@@ -24,13 +24,13 @@ namespace BarMethodApp
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                //.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
             if (env.IsDevelopment())
             {
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets();
+                //builder.AddUserSecrets();
             }
 
             builder.AddEnvironmentVariables();
@@ -77,14 +77,10 @@ namespace BarMethodApp
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+        
 
             app.UseStaticFiles();
 
@@ -97,12 +93,6 @@ namespace BarMethodApp
             app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
-
-            app.UseTwitterAuthentication(new TwitterOptions
-            {
-                ConsumerKey = Configuration["ConsumerKey"],
-                ConsumerSecret = Configuration ["ConsumerSecret"]
-            });
 
             app.UseMvc(routes =>
             {
